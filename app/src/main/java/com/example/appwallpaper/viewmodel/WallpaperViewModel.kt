@@ -21,8 +21,10 @@ class WallpaperViewModel : ViewModel() {
     private fun fetchWallpapers() {
         viewModelScope.launch {
             repository.getWallpapers().collect { wallpaperList ->
+                println("DEBUG: Wallpapers Fetched -> $wallpaperList") // ✅ Add Debug Log
                 _wallpapers.value = wallpaperList
             }
         }
     }
+
 }

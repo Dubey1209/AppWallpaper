@@ -1,5 +1,6 @@
 package com.example.appwallpaper.ui_screens
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,21 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.appwallpaper.viewmodel.WallpaperViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onWallpaperClick: (String) -> Unit) {
+fun HomeScreen(navController: NavController) {
     val viewModel: WallpaperViewModel = viewModel()
     val wallpapers by viewModel.wallpapers.collectAsState()
 
     Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Wallpapers") }
-            )
-        }
+        topBar = { CenterAlignedTopAppBar(title = { Text("Wallpapers") }) }
     ) { padding ->
         LazyVerticalGrid(
             columns = GridCells.Adaptive(120.dp),
@@ -39,10 +37,12 @@ fun HomeScreen(onWallpaperClick: (String) -> Unit) {
                     modifier = Modifier
                         .padding(4.dp)
                         .fillMaxWidth()
-                        .clickable { onWallpaperClick(wallpaper.imageUrl) },
+                        .clickable {
+                            navController.navigate("detail/${Uri.encode(wallpaper.imageUrl)}") // ✅ Navigate on Click
+                        },
                     contentScale = ContentScale.Crop
                 )
             }
+            }
         }
-    }
 }

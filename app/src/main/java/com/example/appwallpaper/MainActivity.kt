@@ -3,34 +3,26 @@ package com.example.appwallpaper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.appwallpaper.ui_screens.HomeScreen
-import com.example.appwallpaper.ui_screens.WallpaperDetailScreen
+import com.example.appwallpaper.navigation.NavGraph
+import com.example.appwallpaper.ui.theme.AppWallpaperTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            AppNavigation()
-        }
-    }
-}
+            AppWallpaperTheme {
+                val navController = rememberNavController()
 
-@Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-    NavHost(navController, startDestination = "home") {
-        composable("home") {
-            HomeScreen { imageUrl ->
-                navController.navigate("detail/$imageUrl")
+                Scaffold { innerPadding ->  // ✅ Use innerPadding inside NavGraph
+                    NavGraph(navController = navController, modifier = Modifier.padding(innerPadding))
+                }
             }
-        }
-        composable("detail/{imageUrl}") { backStackEntry ->
-            val imageUrl = backStackEntry.arguments?.getString("imageUrl") ?: ""
-            WallpaperDetailScreen(imageUrl)
         }
     }
 }
