@@ -5,15 +5,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class WallpaperRepository {
-    // Simulated API call (1 sec delay)
     fun getWallpapers(): Flow<List<Wallpaper>> = flow {
         val wallpapers = listOf(
-            Wallpaper("1", "https://source.unsplash.com/random/300x500/?wallpaper"),
-            Wallpaper("2", "https://source.unsplash.com/random/300x500/?nature"),
-            Wallpaper("3", "https://source.unsplash.com/random/300x500/?abstract"),
-            Wallpaper("4", "https://source.unsplash.com/random/300x500/?technology")
+            Wallpaper("1", "https://picsum.photos/300/500?random=1"),
+            Wallpaper("2", "https://picsum.photos/300/500?random=2"),
+            Wallpaper("3", "https://picsum.photos/300/500?random=3"),
+            Wallpaper("4", "https://picsum.photos/300/500?random=4")
         )
-        delay(1000) // Simulating network delay
+        delay(1000) //
         emit(wallpapers)
     }
 }

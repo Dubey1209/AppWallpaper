@@ -2,10 +2,11 @@ package com.example.appwallpaper.navigation  // ✅ Ensure package name is lower
 
 sealed class Routes(val route: String) {  // ✅ Fixed typo `routes` → `route`
 
-    object HomeScreen : Routes("home")
-    object WallpaperDetailScreen : Routes("detail/{imageUrl}")  // ✅ Added missing screen
-
-    fun withArgs(imageUrl: String): String {
-        return "detail/$imageUrl"  // ✅ Function to pass image URL
+    object Routes {
+        val HomeScreen = Screen("home")
+        val WallpaperDetailScreen = Screen("wallpaperDetail/{imageUrl}")
     }
+
+    data class Screen(val route: String)
+
 }
