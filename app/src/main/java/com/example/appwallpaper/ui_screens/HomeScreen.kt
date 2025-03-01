@@ -14,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.appwallpaper.viewmodel.WallpaperViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onWallpaperClick: (String) -> Unit) {
     val viewModel: WallpaperViewModel = viewModel()
@@ -21,7 +22,9 @@ fun HomeScreen(onWallpaperClick: (String) -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Wallpapers") })
+            CenterAlignedTopAppBar(
+                title = { Text("Wallpapers") }
+            )
         }
     ) { padding ->
         LazyVerticalGrid(
